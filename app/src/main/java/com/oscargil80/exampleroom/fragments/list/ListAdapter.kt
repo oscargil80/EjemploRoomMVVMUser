@@ -9,12 +9,34 @@ import com.oscargil80.exampleroom.R
 import com.oscargil80.exampleroom.data.User
 import com.oscargil80.exampleroom.databinding.CustomRowBinding
 
-class ListAdapter:RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
-
+class ListAdapter(
+    ):RecyclerView.Adapter<ListViewHolder>() {
 
     private var userList = emptyList<User>()
 
-    inner class MyViewHolder(itemView:View): RecyclerView.ViewHolder(itemView) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
+
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return ListViewHolder(layoutInflater.inflate(R.layout.custom_row, parent, false))
+    }
+
+    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
+        val currentItem = userList[position]
+        holder.render(currentItem)
+    }
+    override fun getItemCount(): Int  = userList.size
+
+
+    fun setData(user: List<User>){
+        this.userList = user
+        notifyDataSetChanged()
+    }
+}
+
+
+/*
+  class MyViewHolder(itemView:View): RecyclerView.ViewHolder(itemView) {
       var id: TextView
 
       init {
@@ -22,33 +44,4 @@ class ListAdapter:RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
       }
 
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.custom_row, parent, false))
-    }
-
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentItem = userList[position]
-
-
-
-
-      /*  var firsName : TextView = holder.itemView.findViewById<TextView>(R.id.firstName_txt)
-        firsName.setText(currentItem.firstName)
-
-        var lastName : TextView = holder.itemView.findViewById<TextView>(R.id.lastName_txt)
-        lastName.setText(currentItem.lastName)
-
-        var age : TextView = holder.itemView.findViewById<TextView>(R.id.age_txt)
-        age.setText(currentItem.age)*/
-
-    }
-
-    override fun getItemCount(): Int  = userList.size
-
-    fun setData(user: List<User>){
-        this.userList = user
-        notifyDataSetChanged()
-    }
-
-}
+ */
