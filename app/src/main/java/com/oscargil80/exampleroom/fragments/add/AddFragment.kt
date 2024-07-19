@@ -53,7 +53,6 @@ class AddFragment : Fragment() {
   }else{
       Toast.makeText(requireContext(), "Please fill out fields!", Toast.LENGTH_SHORT).show();
   }
-
     }
 
     private fun inputCheck(firstName: String, lastName: String, age: Editable): Boolean {
