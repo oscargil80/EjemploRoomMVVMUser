@@ -37,7 +37,7 @@ class listFragment : Fragment() {
         val adapter = ListAdapter(
             onClick = { user ->
             val action = listFragmentDirections.actionListFragmentToUpdateFragment(user)
-                findNavController().navigate(R.id.action_listFragment_to_updateFragment)
+               // findNavController().navigate(R.id.action_listFragment_to_updateFragment)
             }
         )
 
