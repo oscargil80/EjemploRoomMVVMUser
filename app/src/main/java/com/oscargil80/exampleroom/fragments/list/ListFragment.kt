@@ -5,30 +5,42 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.ListFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oscargil80.exampleroom.R
-import com.oscargil80.exampleroom.data.UserViewModel
+import com.oscargil80.exampleroom.viewmodel.UserViewModel
 import com.oscargil80.exampleroom.databinding.FragmentListBinding
 
 
 class listFragment : Fragment() {
 
-    private lateinit var  mUserViewModel: UserViewModel
+    private lateinit var mUserViewModel: UserViewModel
 
-    private var _binding:FragmentListBinding? = null
+    private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        val adapter = ListAdapter()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val adapter = ListAdapter(
+            onClick = { user ->
+            val action = listFragmentDirections.actionListFragmentToUpdateFragment(user)
+                findNavController().navigate(R.id.action_listFragment_to_updateFragment)
+            }
+        )
+
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -40,18 +52,15 @@ class listFragment : Fragment() {
         })
 
         binding.floatActionButton.setOnClickListener {
+
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
 
-      return  binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
-
 
 }

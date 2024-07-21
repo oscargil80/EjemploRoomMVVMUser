@@ -1,16 +1,14 @@
 package com.oscargil80.exampleroom.fragments.list
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.oscargil80.exampleroom.R
-import com.oscargil80.exampleroom.data.User
-import com.oscargil80.exampleroom.databinding.CustomRowBinding
+import com.oscargil80.exampleroom.model.User
 
 class ListAdapter(
-    ):RecyclerView.Adapter<ListViewHolder>() {
+    private val onClick: (User) ->Unit
+):RecyclerView.Adapter<ListViewHolder>() {
 
     private var userList = emptyList<User>()
 
@@ -23,7 +21,9 @@ class ListAdapter(
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val currentItem = userList[position]
-        holder.render(currentItem)
+        holder.render(currentItem, onClick)
+
+
     }
     override fun getItemCount(): Int  = userList.size
 

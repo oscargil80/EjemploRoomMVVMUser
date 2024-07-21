@@ -11,8 +11,8 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.oscargil80.exampleroom.R
-import com.oscargil80.exampleroom.data.User
-import com.oscargil80.exampleroom.data.UserViewModel
+import com.oscargil80.exampleroom.model.User
+import com.oscargil80.exampleroom.viewmodel.UserViewModel
 import com.oscargil80.exampleroom.databinding.FragmentAddBinding
 
 
@@ -25,18 +25,13 @@ class AddFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View {
         _binding = FragmentAddBinding.inflate(inflater, container, false)
-
-
         mUserViewModel = ViewModelProvider(this).get((UserViewModel::class.java))
 
         binding.addBtn.setOnClickListener {
             insertDatatoDatabase()
         }
-
-
         return binding.root
     }
 
