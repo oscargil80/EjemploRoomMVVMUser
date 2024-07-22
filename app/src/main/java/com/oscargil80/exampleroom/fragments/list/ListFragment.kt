@@ -1,5 +1,6 @@
 package com.oscargil80.exampleroom.fragments.list
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -31,16 +32,18 @@ class listFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ListAdapter(
             onClick = { user ->
             val action = listFragmentDirections.actionListFragmentToUpdateFragment(user)
+                findNavController().navigate(action)
                // findNavController().navigate(R.id.action_listFragment_to_updateFragment)
             }
         )
-
+         // recyclerview
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -52,7 +55,6 @@ class listFragment : Fragment() {
         })
 
         binding.floatActionButton.setOnClickListener {
-
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
 
