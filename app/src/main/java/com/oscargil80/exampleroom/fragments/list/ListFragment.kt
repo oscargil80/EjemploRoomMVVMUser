@@ -1,11 +1,11 @@
 package com.oscargil80.exampleroom.fragments.list
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.ListFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -29,6 +29,7 @@ class listFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentListBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -59,6 +60,35 @@ class listFragment : Fragment() {
         }
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.delete_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_delete) {
+            deleteAllUser()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun deleteAllUser() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("yes") { _, _ ->
+            mUserViewModel.deleteAllUser()
+            Toast.makeText(
+                requireContext(),
+                "Succesfully  removed all Users",
+                Toast.LENGTH_SHORT
+            ).show();
+
+        }
+        builder.setNegativeButton("No") { _, _ -> }
+        builder.setTitle("Delete all Users?")
+        builder.setMessage("Are You sure you want to delete  all Users ?")
+        builder.create().show()
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
