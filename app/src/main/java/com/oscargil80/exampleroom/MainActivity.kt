@@ -10,6 +10,9 @@ import com.oscargil80.exampleroom.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    //Primer ejemplo de rrom que me dio de cabeza pero lo hice
+    //El archivo se llama Exampleroom en la carpeta androisproyets
+
     private lateinit var binding:ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
